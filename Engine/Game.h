@@ -26,6 +26,7 @@
 #include"Surface.h"
 #include"Animation.h"
 #include"FrameTime.h"
+#include"Character.h"
 
 class Game
 {
@@ -45,8 +46,8 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-	Surface s;
+	Character link;
 	FrameTimer ft;
-	Animation a;
+	
 	/********************************/
 };

@@ -40,14 +40,28 @@ Vec2 & Vec2::operator-=(const Vec2 & v)
 	return *this;
 }
 
-Vec2 Vec2::operator*(const int p) const
+Vec2 Vec2::operator*(const float p) const
 {
 	return Vec2(x*p,y*p);
 }
 
-Vec2 Vec2::operator/(const int p) const
+Vec2 Vec2::operator/(const float p) const
 {
 	return Vec2(x/p,y/p);
+}
+
+Vec2 & Vec2::operator+=(float v)
+{
+	x += v;
+	y += v;
+	return *this;
+}
+
+Vec2 & Vec2::operator-=(float v)
+{
+	x -= v;
+	y -= v;
+	return *this;
 }
 
 float Vec2::GetLength()

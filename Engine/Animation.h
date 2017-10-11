@@ -13,7 +13,6 @@ public:
 	void Update(float dt);
 	void Draw(const Location& l, Graphics& gfx);
 	void Draw(const Location& l, Graphics& gfx, RectI& clip);
-
 private:
 	void Advance();
 private:

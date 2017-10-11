@@ -21,13 +21,11 @@
 #include "MainWindow.h"
 #include "Game.h"
 
-Game::Game( MainWindow& wnd )
+Game::Game(MainWindow& wnd)
 	:
-	wnd( wnd ),
-	gfx( wnd ),
-	s("link90x90.bmp"),
-	ft(),
-	a(0,90,90,90,5,s,0.5)
+	wnd(wnd),
+	gfx(wnd),
+	link({ 100,100 }, 100)
 {
 }
 
@@ -41,11 +39,29 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	a.Update(ft.Mark());
+	Vec2 dir(0.0f,0.0f);
+	if (wnd.kbd.KeyIsPressed(VK_LEFT))
+	{
+		dir.x += -1;
+	}
+	else if (wnd.kbd.KeyIsPressed(VK_RIGHT))
+	{
+		dir.x += 1;
+	}
+	else if (wnd.kbd.KeyIsPressed(VK_UP))
+	{
+		dir.y += -1;
+	}
+	else if (wnd.kbd.KeyIsPressed(VK_DOWN))
+	{
+		dir.y += 1;
+	}
+	link.SetDirection(dir);
+	link.Update(ft.Mark());
 }
 
 void Game::ComposeFrame()
 {
-	a.Draw({ 100, 100 }, gfx);
+	link.Draw(gfx);
 }
 
