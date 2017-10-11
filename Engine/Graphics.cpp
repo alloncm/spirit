@@ -364,6 +364,30 @@ void Graphics::DrawSprite(int x, int y, RectI & r, RectI & clip, const Surface &
 	}
 }
 
+void Graphics::DrawSpriteSubstitute(int x, int y, Color substitute, const Surface & s, Color chroma)
+{
+	DrawSpriteSubstitute(x, y,substitute, s.GetRect(), s, chroma);
+}
+
+void Graphics::DrawSpriteSubstitute(int x, int y, Color substitute, RectI & r, const Surface & s, Color chroma)
+{
+	DrawSpriteSubstitute(x, y,  substitute ,r, GetScreenRect(), s, chroma);
+}
+
+void Graphics::DrawSpriteSubstitute(int x, int y, Color substitute, RectI & r, RectI & clip, const Surface & s, Color chroma)
+{
+	for (int sy = r.GetTopLeft().y; sy < r.GetBotoomRight().y; sy++)
+	{
+		for (int sx = r.GetTopLeft().x; sx < r.GetBotoomRight().x; sx++)
+		{
+			if (clip.IsInside({ x + sx - r.GetTopLeft().x, y + sy - r.GetTopLeft().y }) && s.GetPixel(sx, sy) != chroma)
+			{
+				PutPixel(x + sx - r.GetTopLeft().x, y + sy - r.GetTopLeft().y, substitute);
+			}
+		}
+	}
+}
+
 RectI Graphics::GetScreenRect() const
 {
 	return{{ 0,0 }, { ScreenWidth,ScreenHeight }};

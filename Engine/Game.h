@@ -23,10 +23,9 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
-#include"Surface.h"
-#include"Animation.h"
 #include"FrameTime.h"
 #include"Character.h"
+#include"Font.h"
 
 class Game
 {
@@ -48,6 +47,6 @@ private:
 	/*  User Variables              */
 	Character link;
 	FrameTimer ft;
-	
+	Font f;
 	/********************************/
 };

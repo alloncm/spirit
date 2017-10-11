@@ -25,7 +25,8 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	link({ 100,100 }, 100)
+	link({ 100,100 }, 170),
+	f("Consolas13x24.bmp")
 {
 }
 
@@ -44,15 +45,15 @@ void Game::UpdateModel()
 	{
 		dir.x += -1;
 	}
-	else if (wnd.kbd.KeyIsPressed(VK_RIGHT))
+	if (wnd.kbd.KeyIsPressed(VK_RIGHT))
 	{
 		dir.x += 1;
 	}
-	else if (wnd.kbd.KeyIsPressed(VK_UP))
+	if (wnd.kbd.KeyIsPressed(VK_UP))
 	{
 		dir.y += -1;
 	}
-	else if (wnd.kbd.KeyIsPressed(VK_DOWN))
+	if (wnd.kbd.KeyIsPressed(VK_DOWN))
 	{
 		dir.y += 1;
 	}
@@ -63,5 +64,9 @@ void Game::UpdateModel()
 void Game::ComposeFrame()
 {
 	link.Draw(gfx);
+	std::string s = "hello \nworld";
+	Location l = { 100,100 };
+	f.DrawText(s, l, gfx);
+	
 }
 

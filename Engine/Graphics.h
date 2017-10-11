@@ -64,6 +64,9 @@ public:
 	void DrawSprite(int x, int y, const Surface& s,Color chroma);
 	void DrawSprite(int x, int y, RectI& r, const Surface& s, Color chroma);
 	void DrawSprite(int x, int y, RectI& r, RectI& clip, const Surface& s, Color chroma);
+	void DrawSpriteSubstitute(int x, int y,Color substitute, const Surface& s, Color chroma);
+	void DrawSpriteSubstitute(int x, int y,Color substitute, RectI& r, const Surface& s, Color chroma);
+	void DrawSpriteSubstitute(int x, int y,Color substitute, RectI& r, RectI& clip, const Surface& s, Color chroma);
 	RectI GetScreenRect()const;
 	~Graphics();
 private:
