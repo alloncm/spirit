@@ -1,20 +1,22 @@
 #include "Character.h"
 
-Character::Character(const Vec2 & p, float s)
+Character::Character(const Vec2 & p, float s,int w,int h)
 	:
 	sprite("link90x90.bmp"),
 	pos(p),
 	speed(s),
 	vel({0.0,0.0}),
-	iCurState(State::StandDown)
+	iCurState(State::StandDown),
+	height(h),
+	width(w)
 {
 	for (int i = 0; i < (int)State::StandLeft; i++)
 	{
-		animations.emplace_back(Animation(90, 90 * i, 90, 90, 4, sprite, 0.1));
+		animations.emplace_back(Animation(width, height * i, width, height, 4, sprite, 0.1));
 	}
 	for (int i = (int)State::StandLeft; i < (int)State::Count; i++)
 	{
-		animations.emplace_back(Animation(0, 90 * (i - (int)State::StandLeft), 90, 90, 1, sprite, 0.1));
+		animations.emplace_back(Animation(0, height * (i - (int)State::StandLeft), width, height, 1, sprite, 0.1));
 	}
 }
 
@@ -69,4 +71,9 @@ void Character::SetDirection(const Vec2 & dir)
 		}
 	}
 	vel = dir*speed;
+}
+
+RectI Character::GetCharacterRect() const
+{
+	return RectI({(int)pos.x,(int)pos.y}, { (int)pos.x+width,(int)pos.y+height });
 }

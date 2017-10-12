@@ -13,7 +13,7 @@ Font::Font(std::string filename, Color chroma)
 	assert(gliphHeight*nRows == sprite.GetHeight());
 }
 
-void Font::DrawText(std::string & src, Location & pos, Graphics & gfx)
+void Font::DrawText(std::string & src, Location & pos,Color color, Graphics & gfx)
 {
 	auto newpos = pos;
 	for (auto c : src)
@@ -24,7 +24,7 @@ void Font::DrawText(std::string & src, Location & pos, Graphics & gfx)
 			newpos.y += gliphHeight;
 			continue;
 		}
-		gfx.DrawSpriteSubstitute(newpos.x, newpos.y,Colors::White, MapGleaphRect(c), sprite,chroma);
+		gfx.DrawSpriteSubstitute(newpos.x, newpos.y,color, MapGleaphRect(c), sprite,chroma);
 		newpos.x += gliphWidth;
 	}
 }

@@ -307,6 +307,15 @@ void Graphics::BeginFrame()
 	memset( pSysBuffer,0u,sizeof( Color ) * Graphics::ScreenHeight * Graphics::ScreenWidth );
 }
 
+Color Graphics::GetPixel(int x, int y)
+{
+	assert(x >= 0);
+	assert(x < int(Graphics::ScreenWidth));
+	assert(y >= 0);
+	assert(y < int(Graphics::ScreenHeight));
+	return pSysBuffer[Graphics::ScreenWidth * y + x];
+}
+
 void Graphics::PutPixel( int x,int y,Color c )
 {
 	assert( x >= 0 );
@@ -383,6 +392,39 @@ void Graphics::DrawSpriteSubstitute(int x, int y, Color substitute, RectI & r, R
 			if (clip.IsInside({ x + sx - r.GetTopLeft().x, y + sy - r.GetTopLeft().y }) && s.GetPixel(sx, sy) != chroma)
 			{
 				PutPixel(x + sx - r.GetTopLeft().x, y + sy - r.GetTopLeft().y, substitute);
+			}
+		}
+	}
+}
+
+void Graphics::DrawSpriteGhost(int x, int y, const Surface & s, Color chroma)
+{
+	DrawSpriteGhost(x, y, s.GetRect(), s, chroma);
+}
+
+void Graphics::DrawSpriteGhost(int x, int y, RectI & r, const Surface & s, Color chroma)
+{
+	DrawSpriteGhost(x, y, r, GetScreenRect(), s, chroma);
+}
+
+void Graphics::DrawSpriteGhost(int x, int y, RectI & r, RectI & clip, const Surface & s, Color chroma)
+{
+	for (int sy = r.GetTopLeft().y; sy < r.GetBotoomRight().y; sy++)
+	{
+		for (int sx = r.GetTopLeft().x; sx < r.GetBotoomRight().x; sx++)
+		{
+			const Color srcP = s.GetPixel(sx, sy);
+			if (clip.IsInside({ x + sx - r.GetTopLeft().x, y + sy - r.GetTopLeft().y }) && s.GetPixel(sx, sy) != chroma)
+			{
+				const int xDest = x + sx - r.GetTopLeft().x;
+				const int yDest = y + sy - r.GetTopLeft().y;
+				const Color dstP = GetPixel(xDest,yDest);
+				const Color blendP = {
+					unsigned char((srcP.GetR() + dstP.GetR()) / 2),
+					unsigned char((srcP.GetG() + dstP.GetG()) / 2),
+					unsigned char((srcP.GetB() + dstP.GetB()) / 2),
+				};
+				PutPixel(xDest,yDest, blendP);
 			}
 		}
 	}

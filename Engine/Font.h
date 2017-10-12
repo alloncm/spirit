@@ -9,7 +9,7 @@ class Font
 {
 public:
 	Font(std::string filename, Color chroma = Colors::White);
-	void DrawText(std::string& src, Location& pos, Graphics& gfx);
+	void DrawText(std::string& src, Location& pos,Color color, Graphics& gfx);
 private:
 	RectI MapGleaphRect(char c);
 private:

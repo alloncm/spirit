@@ -25,7 +25,7 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	link({ 100,100 }, 170),
+	link({ 100,100 }, 170,90,90),
 	f("Consolas13x24.bmp")
 {
 }
@@ -63,10 +63,9 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	link.Draw(gfx);
 	std::string s = "hello \nworld";
 	Location l = { 100,100 };
-	f.DrawText(s, l, gfx);
-	
+	f.DrawText(s, l, Colors::White, gfx);
+	link.Draw(gfx);
 }
 

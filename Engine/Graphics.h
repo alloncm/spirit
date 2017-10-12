@@ -57,6 +57,7 @@ public:
 	{
 		PutPixel( x,y,{ unsigned char( r ),unsigned char( g ),unsigned char( b ) } );
 	}
+	Color GetPixel(int x, int y);
 	void PutPixel( int x,int y,Color c );
 	void DrawSpriteNonChroma(int x, int y,const Surface& s);
 	void DrawSpriteNonChroma(int x, int y, RectI& r, const Surface& s);
@@ -64,9 +65,15 @@ public:
 	void DrawSprite(int x, int y, const Surface& s,Color chroma);
 	void DrawSprite(int x, int y, RectI& r, const Surface& s, Color chroma);
 	void DrawSprite(int x, int y, RectI& r, RectI& clip, const Surface& s, Color chroma);
+	//replace color of the sprite
 	void DrawSpriteSubstitute(int x, int y,Color substitute, const Surface& s, Color chroma);
 	void DrawSpriteSubstitute(int x, int y,Color substitute, RectI& r, const Surface& s, Color chroma);
 	void DrawSpriteSubstitute(int x, int y,Color substitute, RectI& r, RectI& clip, const Surface& s, Color chroma);
+	//ghost effect drawing
+	void DrawSpriteGhost(int x, int y, const Surface& s, Color chroma);
+	void DrawSpriteGhost(int x, int y, RectI& r, const Surface& s, Color chroma);
+	void DrawSpriteGhost(int x, int y, RectI& r, RectI& clip, const Surface& s, Color chroma);
+	//replace color of the sprite
 	RectI GetScreenRect()const;
 	~Graphics();
 private:
