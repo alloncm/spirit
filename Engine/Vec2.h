@@ -1,21 +1,64 @@
 #pragma once
 #include<cmath>
 
-class Vec2
+template<typename T>
+class Vec2_
 {
 public:
-	float x;
-	float y;
+	T x;
+	T y;
 public:
-	Vec2();
-	Vec2(float x1, float y1);
-	Vec2 operator+ (const Vec2 &v)const;
-	Vec2 operator- (const Vec2 &v)const;
-	Vec2& operator+=(const Vec2 &v);
-	Vec2& operator-=(const Vec2 &v);
-	Vec2 operator* (const float p)const;
-	Vec2 operator/ (const float p)const;
-	Vec2& operator+= (float v);
-	Vec2& operator-= (float v);
-	float GetLength();
+	Vec2_() = default;
+	Vec2_(T x1, T y1)
+	{
+		x = x1;
+		y = y1;
+	}
+	Vec2_<T> operator+ (const Vec2_ <T> &v)const
+	{
+		return (x + v.x, y + v.y);
+	}
+	Vec2_<T> operator- (const Vec2_ <T>&v)const
+	{
+		return Vec2_(x - v.x, y - v.y);
+	}
+	Vec2_<T>& operator+=(const Vec2_<T>&v)
+	{
+		x += v.x;
+		y += v.y;
+		return *this;
+	}
+	Vec2_<T>& operator-=(const Vec2_<T>&v)
+	{
+		x -= v.x;
+		y -= v.y;
+		return *this;
+	}
+	Vec2_<T> operator* (const T p)const
+	{
+		return Vec2_(x*p, y*p);
+	}
+	Vec2_<T> operator/ (const T p)const
+	{
+		return Vec2_(x / p, y / p);
+	}
+	Vec2_<T>& operator+= (T v)
+	{
+		x += v;
+		y += v;
+		return *this;
+	}
+	Vec2_<T>& operator-= (T v)
+	{
+		x -= v;
+		y -= v;
+		return *this;
+	}
+	float GetLength()
+	{
+		return sqrt(x*x + y*y);
+	}
 };
+
+typedef Vec2_<float> Vec2;
+typedef Vec2_<int> Location;

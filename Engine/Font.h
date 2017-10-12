@@ -2,9 +2,9 @@
 
 #include"Surface.h"
 #include<string>
-#include"Location.h"
+#include"Vec2.h"
 #include"Graphics.h"
-#include"RectI.h"
+#include"Rect.h"
 class Font
 {
 public:

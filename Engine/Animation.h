@@ -2,9 +2,9 @@
 #include"Colors.h"
 #include"Graphics.h"
 #include<vector>
-#include"RectI.h"
+#include"Rect.h"
 #include"Surface.h"
-#include"Location.h"
+#include"Vec2.h"
 
 class Animation
 {

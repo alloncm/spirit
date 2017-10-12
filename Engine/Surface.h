@@ -3,7 +3,7 @@
 #include<string>
 #include"ChiliWin.h"
 #include<fstream>
-#include"RectI.h"
+#include"Rect.h"
 class Surface
 {
 public:
