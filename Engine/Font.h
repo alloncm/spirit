@@ -1,10 +1,8 @@
 #pragma once
 
 #include"Surface.h"
-#include<string>
 #include"Vec2.h"
 #include"Graphics.h"
-#include"Rect.h"
 class Font
 {
 public:

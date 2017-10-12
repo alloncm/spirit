@@ -1,4 +1,5 @@
 #include "Animation.h"
+#include"Effects.h"
 
 Animation::Animation(int x, int y, int width, int height, int count, const Surface & s,float ht, Color chroma)
 	:
@@ -24,12 +25,14 @@ void Animation::Update(float dt)
 
 void Animation::Draw(const Location & l, Graphics & gfx)
 {
-	gfx.DrawSprite(l.x, l.y, frames[iCurFrame], sprite, chroma);
+	SpriteEffects::Chroma e = { chroma };
+	gfx.DrawSprite(l.x, l.y, frames[iCurFrame], sprite, e);
 }
 
 void Animation::Draw(const Location & l, Graphics & gfx, RectI & clip)
 {
-	gfx.DrawSprite(l.x, l.y, frames[iCurFrame], clip, sprite, chroma);
+	SpriteEffects::Chroma e = { chroma };
+	gfx.DrawSprite(l.x, l.y, frames[iCurFrame], clip, sprite, e);
 }
 
 void Animation::Advance()

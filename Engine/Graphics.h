@@ -25,6 +25,7 @@
 #include "Colors.h"
 #include"Surface.h"
 #include"Rect.h"
+#include<cassert>
 
 class Graphics
 {
@@ -59,21 +60,50 @@ public:
 	}
 	Color GetPixel(int x, int y);
 	void PutPixel( int x,int y,Color c );
-	void DrawSpriteNonChroma(int x, int y,const Surface& s);
-	void DrawSpriteNonChroma(int x, int y, RectI& r, const Surface& s);
-	void DrawSpriteNonChroma(int x, int y, RectI& r, RectI& clip, const Surface& s);
-	void DrawSprite(int x, int y, const Surface& s,Color chroma);
-	void DrawSprite(int x, int y, RectI& r, const Surface& s, Color chroma);
-	void DrawSprite(int x, int y, RectI& r, RectI& clip, const Surface& s, Color chroma);
-	//replace color of the sprite
-	void DrawSpriteSubstitute(int x, int y,Color substitute, const Surface& s, Color chroma);
-	void DrawSpriteSubstitute(int x, int y,Color substitute, RectI& r, const Surface& s, Color chroma);
-	void DrawSpriteSubstitute(int x, int y,Color substitute, RectI& r, RectI& clip, const Surface& s, Color chroma);
-	//ghost effect drawing
-	void DrawSpriteGhost(int x, int y, const Surface& s, Color chroma);
-	void DrawSpriteGhost(int x, int y, RectI& r, const Surface& s, Color chroma);
-	void DrawSpriteGhost(int x, int y, RectI& r, RectI& clip, const Surface& s, Color chroma);
-	//replace color of the sprite
+
+	template<typename T>
+	void DrawSprite(int x, int y, const Surface & s,T effect)
+	//Draw the sprite to the screen with an effect
+	{
+		DrawSprite(x, y, s.GetRect(), s,effect);
+	}
+
+	template<typename T>
+	void DrawSprite(int x, int y, RectI & src, const Surface & s, T effect)
+	//draw the sprite to the screen with effect draws only the part the rect pionts to
+	{
+		DrawSprite(x, y, src, GetScreenRect(), s,effect);
+	}
+
+	template<typename T>
+	void DrawSprite(int x, int y, RectI & src, RectI & clip, const Surface & s, T effect)
+	//draw the sprite and the effect only yhe paet src pionts to and only if the sprite is int he clip
+	{
+		//some assertion
+		
+		assert(src.GetTopLeft().x >=0);
+		assert(src.GetTopLeft().y >= 0);
+		assert(src.GetBotoomRight().x <= s.GetWidth());
+		assert(src.GetBotoomRight().y <= s.GetHeight());
+		
+		for (int sy = src.GetTopLeft().y; sy < src.GetBotoomRight().y; sy++)
+		{
+			for (int sx = src.GetTopLeft().x; sx < src.GetBotoomRight().x; sx++)
+			{
+				if (clip.IsInside({ x + sx - src.GetTopLeft().x, y + sy - src.GetTopLeft().y }))
+				{
+					const int xDist = x + sx - src.GetTopLeft().x;
+					const int yDist = y + sy - src.GetTopLeft().y;
+					effect(
+						s.GetPixel(sx, sy),
+						xDist,
+						yDist,
+						*this
+					);
+				}
+			}
+		}
+	}
 	RectI GetScreenRect()const;
 	~Graphics();
 private:

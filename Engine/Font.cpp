@@ -1,5 +1,7 @@
 #include "Font.h"
-#include<assert.h>
+#include<cassert>
+#include"Effects.h"
+
 
 Font::Font(std::string filename, Color chroma)
 	:
@@ -15,6 +17,8 @@ Font::Font(std::string filename, Color chroma)
 
 void Font::DrawText(std::string & src, Location & pos,Color color, Graphics & gfx)
 {
+	SpriteEffects::Substitution e = { chroma ,color};
+
 	auto newpos = pos;
 	for (auto c : src)
 	{
@@ -24,7 +28,7 @@ void Font::DrawText(std::string & src, Location & pos,Color color, Graphics & gf
 			newpos.y += gliphHeight;
 			continue;
 		}
-		gfx.DrawSpriteSubstitute(newpos.x, newpos.y,color, MapGleaphRect(c), sprite,chroma);
+		gfx.DrawSprite(newpos.x, newpos.y, MapGleaphRect(c), sprite,e);
 		newpos.x += gliphWidth;
 	}
 }

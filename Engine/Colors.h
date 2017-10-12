@@ -99,7 +99,7 @@ public:
 		}
 		return false;
 	}
-	bool operator!=(Color c)
+	bool operator!=(const Color c)const
 	{
 		if (this->dword == c.dword)
 		{
