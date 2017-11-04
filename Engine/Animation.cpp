@@ -25,8 +25,15 @@ void Animation::Update(float dt)
 
 void Animation::Draw(const Location & l, Graphics & gfx)
 {
-	SpriteEffects::Chroma e = { chroma };
-	gfx.DrawSprite(l.x, l.y, frames[iCurFrame], sprite, e);
+	//negative effect
+	gfx.DrawSprite(l.x, l.y, frames[iCurFrame], sprite, [this](Color cSrc,int xDest,int yDest,Graphics& gfx) {
+		if (cSrc != chroma)
+		{
+			gfx.PutPixel(xDest,yDest,
+			{255u-cSrc.GetR(),255u - cSrc.GetG(), 255u - cSrc.GetB()}
+			);
+		}
+	});
 }
 
 void Animation::Draw(const Location & l, Graphics & gfx, RectI & clip)
